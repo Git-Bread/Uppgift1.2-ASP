@@ -1,25 +1,50 @@
 ﻿@page "/JSON"
+@inject HttpClient Http
+@using Models
 
 <PageTitle>JSON</PageTitle>
 <section class="container">
-	<div class="is-flex-desktop gap-5">
-		<div class="mb-4">
-			<h1 class="title">About Me</h1>
-			<p>
-				Då är vi vid den kursliga mandatoriska om mig sidan, aja jag är jag, konstigt som det är. Tänkte jag skulle fylla denna sida med ai-slop men kom fram
-				till att jag inte kännde för det. De e samma goa jag som i dom tidigare kurserna, fast med en aning mer kompentens inom detta fält av studie jämfört med förra "about me sidan". I alla fall tills dom
-				vänder upp och ner på allt om några månader/år. <br><br>
-			</p>
-			<p>
-				Varför är det här på svenska när resten utav sidan är på engelska? bra fråga.
-			</p>
-			<p class="mt-5">
-				-Mvh Max Gagner (maga2101)
-			</p>
-		</div>
-		<figure class="image custom-image">
-			<img src="images/foto.png" alt="Me" class="is-rounded">
-        <figcaption class="mt-2 has-text-centered">Kommer att återanvända den här bilden så länge som jag kommer undan med det</figcaption>        
-   </figure>
-	</div>
+    <h1 class="title">Weather Forecast</h1>
+    <!--Untill data is loaded-->
+    @if (forecasts == null)
+    {
+        <p><em>Loading...</em></p> 
+    }
+    else if (forecasts.Count == 0)  
+    {
+        <p><em>No data available.</em></p>    <!--If no data-->
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Temperature (C)</th>
+                    <th>Summary</th>
+                </tr>
+            </thead>
+            <tbody>
+            <!--[] in case of null, cant really happen due to earlier checks but IDE complained-->
+                @foreach (var forecast in forecasts ?? [] )
+                {
+                    <tr>
+                        <td>@forecast.Date.ToShortDateString()</td>
+                        <td>@forecast.TemperatureC</td>
+                        <td>@forecast.Summary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </section>
+
+@code {
+    private List<WeatherForecast> forecasts = [];
+
+	//Async run to fetch json, if null set to empty list
+    protected override async Task OnInitializedAsync()
+    {
+       forecasts = await Http.GetFromJsonAsync<List<WeatherForecast>>("sample-data/weather.json") ?? [];
+    }
+}

@@ -5,6 +5,7 @@
 
 <h1 class="title">Convert Values</h1>
 
+<!--Form models used for reactive update-->
 <EditForm Model="@conversionModel" class="form-control box">
     <DataAnnotationsValidator />
     <ValidationSummary class="text-danger"/>
@@ -17,6 +18,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Convert</button>
+    <!--Manuall Clear to make it fill with 0 instead of null-->
     <button type="button" class="btn btn-danger" @onclick=ClearConversion>Clear</button>
 </EditForm>
 
@@ -40,6 +42,7 @@
     private ConversionModel conversionModel = new ConversionModel();
     private ConversionModelSpeed conversionModelSpeed = new ConversionModelSpeed();
 
+	//stops the clear from putting "null" in the input
     private void ClearConversion()
     {
         conversionModel.Value = 0;
