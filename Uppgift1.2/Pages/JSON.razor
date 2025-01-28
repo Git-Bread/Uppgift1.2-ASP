@@ -1,6 +1,7 @@
 ﻿@page "/JSON"
 @inject HttpClient Http
 @using Models
+@using Components
 
 <PageTitle>JSON</PageTitle>
 <section class="container">
@@ -38,6 +39,7 @@
         </table>
     }
 </section>
+<Uppgift1._2.Components.TestComponent Name="Testing.." />
 
 @code {
     private List<WeatherForecast> forecasts = [];

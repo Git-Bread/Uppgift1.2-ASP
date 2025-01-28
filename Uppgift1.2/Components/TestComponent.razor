@@ -1,0 +1,21 @@
+﻿<section class="box">
+    <p>Hello, @Name!</p>
+    <h3>Counter</h3>
+
+    <p>Current count: @currentCount</p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+</section>
+
+@code {
+    [Parameter]
+	public string Name { get; set; } = "Stranger";
+
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
+
