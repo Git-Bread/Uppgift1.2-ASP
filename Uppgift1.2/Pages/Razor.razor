@@ -1,0 +1,59 @@
+﻿@page "/razor"
+
+<PageTitle>Razor</PageTitle>
+
+<h1 class="title">Razor</h1>
+
+<h2 class="subtitle mt-2 mb-1">MIUN Web Development Program Courses</h2>
+<ul class="list container">
+    @foreach (var course in courses)
+    {
+        <li class="mb-1">* @course.Code - @course.Name</li>
+    }
+</ul>
+
+<div class="mt-2">
+    <h2 class="subtitle mb-1">Information</h2>
+    <div class="container">
+        <p>Current Date and Time: @Date.ToString("d"), @Date.ToString("t")</p>
+        <p>@(isFriday ? "Today is Friday" : "Today is not Friday")</p>
+    </div>
+</div>
+
+@code {
+    private List<Course> courses = new List<Course>
+    {
+        new Course { Code = "DT057G", Name = "Webbutveckling I" },
+        new Course { Code = "DT084G", Name = "Introduktion till programmering i JavaScript" },
+        new Course { Code = "DT200G", Name = "Grafisk teknik för webb" },
+        new Course { Code = "DT068G", Name = "Webbanvändbarhet" },
+        new Course { Code = "DT003G", Name = "Databaser" },
+        new Course { Code = "DT211G", Name = "Frontend-baserad webbutveckling" },
+        new Course { Code = "DT207G", Name = "Backend-baserad webbutveckling" },
+        new Course { Code = "DT208G", Name = "Programmering i TypeScript" },
+        new Course { Code = "IK060G", Name = "Projektledning" },
+        new Course { Code = "DT071G", Name = "Programmering i C#.NET" },
+        new Course { Code = "DT193G", Name = "Fullstack-utveckling med ramverk" },
+        new Course { Code = "DT209G", Name = "Webbutveckling för WordPress" },
+    };
+
+    private DateTime Date = DateTime.Now;
+    private bool isFriday;
+
+    protected override void OnInitialized()
+    {
+        isFriday = CheckIfFriday();
+    }
+
+
+    private bool CheckIfFriday()
+    {
+        return DateTime.Now.DayOfWeek == DayOfWeek.Friday;
+    }
+
+    private class Course
+    {
+        public string Code { get; set; } = "";
+        public string Name { get; set; } = "";
+    }
+}

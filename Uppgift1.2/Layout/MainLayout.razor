@@ -1,16 +1,23 @@
 ﻿@inherits LayoutComponentBase
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+<div class="wrapper is-flex is-flex-direction-column">
+    <header class="level p-4 border-bottom border-3">
+        <img src="images/logo.png" alt="Logo" />
+        <h2 role="status" class="is-size-4 mr-4 mb-auto pt-4">Todays Date: @Date.ToString("d")</h2>
+    </header>
+    <div class="columns is-8 container is-flex-grow-1">
+        <aside class="column is-one-quarter">
+            <NavMenu />
+        </aside>
+        <main class="column is-three-quarter">
             @Body
-        </article>
-    </main>
+        </main>
+    </div>
+    <footer class="footer mt-5 border-top border-bottom p-4">
+        <p class="has-text-centered is-size-5">Av Max Gagner (maga2101) - Kontakta mig via min Epost: nejtack@bin.dk</p>
+    </footer>
 </div>
+
+@code {
+    private DateTime Date = DateTime.Today;
+}
