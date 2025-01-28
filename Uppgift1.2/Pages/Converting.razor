@@ -1,0 +1,54 @@
+﻿@page "/converting"
+@using Models
+
+<PageTitle>Converting</PageTitle>
+
+<h1 class="title">Convert Values</h1>
+
+<EditForm Model="@conversionModel" class="form-control box">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger"/>
+
+    <div class="mb-3">
+        <label for="valueMF" class="form-label">Value (M to F)</label>
+        <InputNumber id="valueMF" class="form-control" @bind-Value="conversionModel.Value " />
+        <label for="resultMF" class="form-label mt-1">Result (M to F)</label>
+        <InputNumber id="resultMF" class="form-control" @bind-Value="conversionModel.ConvertedValue" readonly />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Convert</button>
+    <button type="button" class="btn btn-danger" @onclick=ClearConversion>Clear</button>
+</EditForm>
+
+<EditForm Model="@conversionModelSpeed" class="form-control mt-4 box">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger" />
+
+    <div class="mb-3">
+        <label for="valueMF" class="form-label mt-1">Value (Km/h to Miles/h)</label>
+        <InputNumber id="valueMF" class="form-control" @bind-Value="conversionModelSpeed.Value " />
+        <label for="resultMF" class="form-label">Result (Km/h to Miles/h)</label>
+        <InputNumber id="resultMF" class="form-control" @bind-Value="conversionModelSpeed.ConvertedValue" readonly/>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Convert</button>
+    <button type="button" class="btn btn-danger" @onclick=ClearConversionSpeed>Clear</button>
+</EditForm>
+
+
+@code {
+    private ConversionModel conversionModel = new ConversionModel();
+    private ConversionModelSpeed conversionModelSpeed = new ConversionModelSpeed();
+
+    private void ClearConversion()
+    {
+        conversionModel.Value = 0;
+        conversionModel.ConvertedValue = 0;
+    }
+
+    private void ClearConversionSpeed()
+    {
+        conversionModelSpeed.Value = 0;
+        conversionModelSpeed.ConvertedValue = 0;
+    }
+}
